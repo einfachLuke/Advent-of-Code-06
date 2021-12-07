@@ -1,23 +1,18 @@
-fishlist = open("text06.txt").read().split(",")
-infishlist = []
-daystocome = 80
-dayconter = 1
+inp = [3, 4, 1, 1, 5, 1, 3, 1, 1, 3, 5, 1, 1, 5, 3, 2, 4, 2, 2, 2, 1, 1, 1, 1, 5, 1, 1, 1, 1, 1, 3, 1, 1, 5, 4, 1, 1, 1, 4, 1, 1, 1, 1, 2, 3, 2, 5, 1, 5, 1, 2, 1, 1, 1, 4, 1, 1, 1, 1, 3, 1, 1, 3, 1, 1, 1, 1, 1, 1, 2, 3, 4, 2, 1, 3, 1, 1, 2, 1, 1, 2, 1, 5, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 5, 1, 4, 1, 1, 1, 3, 3, 1, 3, 1, 3, 1, 4, 1, 1, 1, 1, 1, 4, 5, 1, 1, 3, 2, 2, 5, 5, 4, 3, 1, 2, 1, 1, 1, 4, 1, 3, 4, 1, 1, 1, 1, 2, 1, 1, 3, 2, 1, 1, 1, 1, 1, 4,
+       1, 1, 1, 4, 4, 5, 2, 1, 1, 1, 1, 1, 2, 4, 2, 1, 1, 1, 2, 1, 1, 2, 1, 5, 1, 5, 2, 5, 5, 1, 1, 3, 1, 4, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 4, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 1, 5, 1, 1, 3, 5, 1, 1, 5, 5, 3, 5, 3, 4, 1, 1, 1, 3, 1, 1, 3, 1, 1, 1, 1, 1, 1, 5, 1, 3, 1, 5, 1, 1, 4, 1, 3, 1, 1, 1, 2, 1, 1, 1, 2, 1, 5, 1, 1, 1, 1, 4, 1, 3, 2, 3, 4, 1, 3, 5, 3, 4, 1, 4, 4, 4, 1, 3, 2, 4, 1, 4, 1, 1, 2, 1, 3, 1, 5, 5, 1, 5, 1, 1, 1, 5, 2, 1, 2, 3, 1, 4, 3, 3, 4, 3]
 
-for fish in fishlist:
-    infishlist.append(int(fish))
-
-for fish in infishlist:
-    fish += 1
-
-print(infishlist)
-
-print(len(fishlist))
-while dayconter <= daystocome:
-    print("Day", dayconter)
-    for fish in infishlist:
-        fish -= 1
-        if fish == 0:
-            fish = 7
-            infishlist.append(9)
-    dayconter += 1
-    print(len(infishlist))
+new_count = [0, 0]
+count = [0, 0, 0, 0, 0, 0, 0]
+for idx in range(len(inp)):
+    count[inp[idx]] += 1
+day = 0
+birth = 0
+for i in range(256):
+    tdy = count[day] + new_count[birth]
+    new_count[birth] = count[day]
+    count[day] = tdy
+    day = (day+1) % 7
+    birth = (birth+1) % 2
+    if i == 79:
+        print(f"Part 1: {sum(count) + sum(new_count)}")
+print(f"Part 2: {sum(count) + sum(new_count)}")
